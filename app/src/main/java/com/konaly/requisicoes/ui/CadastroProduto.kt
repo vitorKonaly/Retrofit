@@ -1,5 +1,6 @@
 package com.konaly.requisicoes.ui
 
+import android.icu.util.Currency
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,6 +11,8 @@ import com.konaly.requisicoes.network.ProdutosAPI
 import com.konaly.requisicoes.network.RetrofitInstance
 import kotlinx.android.synthetic.main.activity_cadastro_produto.*
 import kotlinx.android.synthetic.main.activity_main.*
+import me.abhinay.input.CurrencyEditText
+import me.abhinay.input.CurrencySymbols.USA
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +24,7 @@ class CadastroProduto : AppCompatActivity() {
         setContentView(R.layout.activity_cadastro_produto)
 
         cadastrar()
+
     }
 
     private fun cadastrar() {

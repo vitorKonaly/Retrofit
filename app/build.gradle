@@ -60,6 +60,8 @@ dependencies {
     //----------------SWIPER---------------------\\
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+    //-------------------mascara monetaria--------------\\
+    implementation 'me.abhinay.input:currency-edittext:1.1'
 
 
 
