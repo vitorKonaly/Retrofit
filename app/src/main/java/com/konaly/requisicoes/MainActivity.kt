@@ -1,5 +1,6 @@
 package com.konaly.requisicoes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -20,6 +21,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         callServiceGetProdutos()
+
+        swipe.setOnRefreshListener {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+            swipe.isRefreshing = false
+        }
 
     }
 
