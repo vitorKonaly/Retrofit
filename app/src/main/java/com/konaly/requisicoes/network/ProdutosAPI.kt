@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface ProdutosAPI {
 
-    @GET("produto")
+    @GET("produtos")
     fun getProdutos():Call<Produto>
 
 }
