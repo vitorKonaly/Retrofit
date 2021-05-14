@@ -1,10 +1,11 @@
-package com.konaly.requisicoes
+package com.konaly.requisicoes.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.konaly.requisicoes.R
 import com.konaly.requisicoes.adapter.ProdutosAdapter
 import com.konaly.requisicoes.model.Produto
 import com.konaly.requisicoes.network.ProdutosAPI
@@ -13,7 +14,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,13 +21,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         callServiceGetProdutos()
+        swipeListener()
+        irCadastro()
+    }
 
+    private fun irCadastro() {
+        fabCadastro.setOnClickListener {
+            val intent = Intent(this,CadastroProduto::class.java)
+            startActivity(intent)
+        }
+    }
+
+
+    private fun swipeListener() {
         swipe.setOnRefreshListener {
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             swipe.isRefreshing = false
+            finish()
         }
-
     }
 
     private fun callServiceGetProdutos() {
