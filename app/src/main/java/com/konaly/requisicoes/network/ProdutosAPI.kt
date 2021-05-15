@@ -18,6 +18,15 @@ interface ProdutosAPI {
         @Field("valor_unitario") valor_unitario:String,
         @Field("path_thumb")path_thumb:String
     ):Call<ProdutoItem>
+    @FormUrlEncoded
+    @PUT("produtos/{id}")
+    fun editProduto(
+        @Path("id")id:Int,
+        @Field("nome") nome:String,
+        @Field("descricao") descricao:String,
+        @Field("valor_unitario") valor_unitario:String,
+        @Field("path_thumb")path_thumb:String
+    ):Call<ProdutoItem>
 
     @DELETE("produtos/{id}")
     fun deletarProduto(

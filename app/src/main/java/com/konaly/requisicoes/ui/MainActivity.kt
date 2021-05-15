@@ -1,12 +1,10 @@
 package com.konaly.requisicoes.ui
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.konaly.requisicoes.R
 import com.konaly.requisicoes.adapter.ProdutosAdapter
@@ -15,6 +13,7 @@ import com.konaly.requisicoes.model.ProdutoItem
 import com.konaly.requisicoes.network.ProdutosAPI
 import com.konaly.requisicoes.network.RetrofitInstance
 import kotlinx.android.synthetic.main.activity_delete_produto.view.*
+import kotlinx.android.synthetic.main.activity_editar.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    var c:Boolean = false
+
 
 
     private fun irCadastro() {
@@ -72,11 +71,39 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun clickProduto(produto: ProdutoItem)  {
-                val alert = AlertDialog.Builder(this@MainActivity)
+
+
+
+                val alertAbrirMenu = AlertDialog.Builder(this@MainActivity)
                 val inflater = layoutInflater.inflate(R.layout.activity_delete_produto,null)
-                alert.setView(inflater)
-                val alerta = alert.create()
+                alertAbrirMenu.setView(inflater)
+                val alerta = alertAbrirMenu.create()
                 alerta.show()
+
+                inflater.btnEditar.setOnClickListener {
+                    val alertEditarProduto = AlertDialog.Builder(this@MainActivity)
+                    val inflateEdit = layoutInflater.inflate(R.layout.activity_editar,null)
+                    alertEditarProduto.setView(inflateEdit)
+                    val alertaEdit = alertEditarProduto
+                    alertaEdit.show()
+                    inflateEdit.buttonEditar.setOnClickListener {
+                        val produtosEApi : ProdutosAPI = RetrofitInstance.getRestEngin().create(ProdutosAPI::class.java)
+                        val resultD:Call<ProdutoItem> = produtosEApi.editProduto(produto.id,inflateEdit.nomeProdutoEdit.text.toString(),inflateEdit.descProdutoEdit.text.toString(),inflateEdit.valorProdutoEdit.text.toString(),"https://bslacademiadelideres.com.br/wp-content/uploads/2020/07/placeholder.png")
+                        resultD.enqueue(object : Callback<ProdutoItem>{
+                            override fun onFailure(call: Call<ProdutoItem>, t: Throwable) {
+                                Toast.makeText(this@MainActivity,"ERRO",Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onResponse(call: Call<ProdutoItem>, response: Response<ProdutoItem>) {
+
+                                Toast.makeText(this@MainActivity,"Editado",Toast.LENGTH_SHORT).show()
+                                callServiceGetProdutos()
+
+                            }
+                        })
+                    }
+
+                }
 
                 inflater.btnExcluir.setOnClickListener {
                     val produtosDApi : ProdutosAPI = RetrofitInstance.getRestEngin().create(ProdutosAPI::class.java)

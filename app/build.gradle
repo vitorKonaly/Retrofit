@@ -63,6 +63,8 @@ dependencies {
     //-------------------mascara monetaria--------------\\
     implementation 'me.abhinay.input:currency-edittext:1.1'
 
+    //-------------------MASCARA MELHOR---------------\\
+    implementation 'com.github.santalu:maskara:1.0.0'
 
 
 }
